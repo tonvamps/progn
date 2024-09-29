@@ -1,7 +1,7 @@
 requests
 pandas
 numpy
-python-telegram-bot==13.15
 nltk
+python-telegram-bot==20.0a6
 ta
 scipy
