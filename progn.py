@@ -5,6 +5,8 @@ import numpy as np
 import logging
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon', download_dir='/tmp/')
+nltk.data.path.append('/tmp/')
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
