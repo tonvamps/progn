@@ -941,8 +941,20 @@ def main():
     application.add_handler(CallbackQueryHandler(button))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
     # Проверяем пользовательские сигналы каждые 5 минут
+    async def post_init(application: Application):
     application.job_queue.run_repeating(check_user_signals, interval=300, first=0)
-    application.run_polling()
+
+# Main function
+def main():
+    application = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
+
+    application.add_handler(CommandHandler('start', start))
+    application.add_handler(CommandHandler('help', start))
+    application.add_handler(CallbackQueryHandler(button))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+
+    # Schedule jobs in post_init
+    application.run_polling(post_init=post_init)
 
 if __name__ == '__main__':
     main()
